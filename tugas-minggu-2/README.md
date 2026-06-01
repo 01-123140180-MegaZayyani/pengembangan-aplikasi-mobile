@@ -1,35 +1,24 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM).
+# Tugas Praktikum Minggu 2 - Pengembangan Aplikasi Mobile
 
-* [/iosApp](./iosApp/iosApp) contains an iOS application. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+**Nama:** Mega Zayyani  
+**NIM:** 123140180
+**Mata Kuliah:** IF25-22017 Pengembangan Aplikasi Mobile  
+**Institut:** Institut Teknologi Sumatera
 
-* [/shared](./shared/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./shared/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./shared/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./shared/src/jvmMain/kotlin)
-    folder is the appropriate location.
+## Screenshot
 
-### Running the apps
+### Desktop
+![Screenshot Desktop](screenshots/screenshot_desktop.png)
 
-Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:
+### Android
+![Screenshot Android](screenshots/screenshot_android.png)
 
-- Android app: `./gradlew :androidApp:assembleDebug`
-- Desktop app:
-  - Hot reload: `./gradlew :composeApp:hotRun --auto`
-  - Standard run: `./gradlew :composeApp:run`
-- iOS app: open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+## Cara Menjalankan
 
-### Running tests
+```bash
+# Desktop
+./gradlew :composeApp:run
 
-Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
-
-- Android tests: `./gradlew :shared:testAndroidHostTest`
-- Desktop tests: `./gradlew :shared:jvmTest`
-- iOS tests: `./gradlew :shared:iosSimulatorArm64Test`
-
----
-
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+# Android (butuh emulator aktif)
+./gradlew :composeApp:installDebug
+```
