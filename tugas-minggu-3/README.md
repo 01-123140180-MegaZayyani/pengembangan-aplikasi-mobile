@@ -3,8 +3,8 @@
 
 | | |
 |---|---|
-| **Nama** | [Nama Lengkap] |
-| **NIM** | [NIM] |
+| **Nama** | Mega Zayyani |
+| **NIM** | 123140180 |
 | **Mata Kuliah** | IF25-22017 Pengembangan Aplikasi Mobile |
 | **Program Studi** | Teknik Informatika — Institut Teknologi Sumatera |
 
