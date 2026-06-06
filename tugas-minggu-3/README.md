@@ -1,35 +1,84 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop (JVM).
+# My Profile App
+> Tugas Praktikum 3 — Compose Multiplatform Basics
 
-* [/iosApp](./iosApp/iosApp) contains an iOS application. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
-
-* [/shared](./shared/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./shared/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./shared/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./shared/src/jvmMain/kotlin)
-    folder is the appropriate location.
-
-### Running the apps
-
-Use the run configurations provided by the run widget in your IDE's toolbar. You can also use these commands and options:
-
-- Android app: `./gradlew :androidApp:assembleDebug`
-- Desktop app:
-  - Hot reload: `./gradlew :desktopApp:hotRun --auto`
-  - Standard run: `./gradlew :desktopApp:run`
-- iOS app: open the [/iosApp](./iosApp) directory in Xcode and run it from there.
-
-### Running tests
-
-Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
-
-- Android tests: `./gradlew :shared:testAndroidHostTest`
-- Desktop tests: `./gradlew :shared:jvmTest`
-- iOS tests: `./gradlew :shared:iosSimulatorArm64Test`
+| | |
+|---|---|
+| **Nama** | [Nama Lengkap] |
+| **NIM** | [NIM] |
+| **Mata Kuliah** | IF25-22017 Pengembangan Aplikasi Mobile |
+| **Program Studi** | Teknik Informatika — Institut Teknologi Sumatera |
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## Screenshot
+
+### Desktop
+![Profile App Desktop](screenshots/screenshot_desktop.png)
+
+### Android
+![Profile App Android](screenshots/screenshot_android.png)
+
+---
+
+## Fitur yang Diimplementasikan
+
+### Composable Functions (25%)
+- `ProfileHeader` — menampilkan foto profil, nama, dan judul menggunakan `Box` + `Column`
+- `InfoItem` — menampilkan baris informasi kontak menggunakan `Row` + `Icon` + `Column`
+- `ProfileCard` — card reusable dengan `title` dan `content` slot
+
+### Layout (25%)
+| Layout | Digunakan pada |
+|---|---|
+| `Column` | Susunan vertikal seluruh halaman, isi ProfileCard |
+| `Row` | InfoItem, tombol aksi Edit & Share |
+| `Box` | Avatar di ProfileHeader, header background |
+
+### UI Components (20%)
+- `Text` — nama, judul, label, bio, nilai kontak
+- `Button` + `OutlinedButton` — tombol Edit Profil dan Bagikan
+- `Icon` — avatar, email, telepon, lokasi, tombol aksi
+- `Card` — ProfileCard dengan elevasi dan rounded corner
+
+### Modifiers (15%)
+- `fillMaxWidth`, `fillMaxSize`, `size` — ukuran komponen
+- `padding`, `clip`, `background` — styling dan jarak
+- `weight` — distribusi lebar tombol aksi
+- `windowInsetsPadding(WindowInsets.statusBars)` — padding status bar Android
+
+### Code Quality (15%)
+- Penamaan composable menggunakan PascalCase
+- Parameter fungsi dengan tipe yang jelas
+- Komentar pada setiap composable function
+- Build tanpa error di Android dan Desktop
+
+### Bonus AnimatedVisibility (+10%)
+Bagian bio menggunakan `AnimatedVisibility` untuk menampilkan/menyembunyikan teks tambahan dengan tombol toggle.
+
+---
+
+## Cara Menjalankan
+
+### Desktop
+```bash
+./gradlew desktopRun -DmainClass=MainKt --quiet
+```
+
+### Android
+Buka project di Android Studio, lalu klik **Run** atau:
+```bash
+./gradlew :androidApp:assembleDebug
+```
+
+---
+
+## Struktur Kode
+
+```
+shared/src/commonMain/kotlin/
+└── App.kt
+    ├── ProfileHeader()   — Composable header dengan foto dan nama
+    ├── InfoItem()        — Composable baris informasi kontak
+    ├── ProfileCard()     — Composable card reusable
+    └── App()             — Fungsi utama yang merangkai semua komponen
+```
