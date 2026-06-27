@@ -13,10 +13,10 @@
 ## Screenshot
 
 ### Light Mode
-![Profile App Light Mode](screenshots/screenshot_light_mode.png)
+![Profile App Light Mode](Screenshots/screenshot_light_mode.png)
 
 ### Dark Mode
-![Profile App Dark Mode](screenshots/screenshot_dark_mode.png)
+![Profile App Dark Mode](Screenshots/screenshot_dark_mode.png)
 
 ---
 
