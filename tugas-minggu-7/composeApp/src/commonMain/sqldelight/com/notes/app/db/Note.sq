@@ -1,0 +1,86 @@
+-- ============================================================
+-- Note.sq — SQLDelight schema untuk Notes App (Tugas Minggu 7)
+-- ============================================================
+
+CREATE TABLE NoteEntity (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    title       TEXT    NOT NULL,
+    content     TEXT    NOT NULL,
+    is_favorite INTEGER NOT NULL DEFAULT 0,   -- 0=false, 1=true
+    created_at  INTEGER NOT NULL,
+    updated_at  INTEGER NOT NULL
+);
+
+-- Indexes untuk performa query
+CREATE INDEX idx_note_updated ON NoteEntity(updated_at DESC);
+CREATE INDEX idx_note_favorite ON NoteEntity(is_favorite);
+
+-- ============================================================
+-- QUERIES
+-- ============================================================
+
+-- Ambil semua notes, urutkan berdasarkan updated_at terbaru
+selectAll:
+SELECT * FROM NoteEntity ORDER BY updated_at DESC;
+
+selectAllOldest:
+SELECT * FROM NoteEntity ORDER BY updated_at ASC;
+
+selectAllAlphabetical:
+SELECT * FROM NoteEntity ORDER BY title COLLATE NOCASE ASC;
+
+-- Ambil hanya notes favorit
+selectFavorites:
+SELECT * FROM NoteEntity WHERE is_favorite = 1 ORDER BY updated_at DESC;
+
+-- Ambil note berdasarkan ID
+selectById:
+SELECT * FROM NoteEntity WHERE id = ?;
+
+-- Search notes berdasarkan judul atau konten (case-insensitive)
+search:
+SELECT * FROM NoteEntity
+WHERE title LIKE '%' || ? || '%'
+   OR content LIKE '%' || ? || '%'
+ORDER BY updated_at DESC;
+
+searchOldest:
+SELECT * FROM NoteEntity
+WHERE title LIKE '%' || ? || '%'
+   OR content LIKE '%' || ? || '%'
+ORDER BY updated_at ASC;
+
+searchAlphabetical:
+SELECT * FROM NoteEntity
+WHERE title LIKE '%' || ? || '%'
+   OR content LIKE '%' || ? || '%'
+ORDER BY title COLLATE NOCASE ASC;
+
+-- Insert note baru
+insert:
+INSERT INTO NoteEntity(title, content, is_favorite, created_at, updated_at)
+VALUES (?, ?, 0, ?, ?);
+
+-- Update note yang sudah ada
+update:
+UPDATE NoteEntity
+SET title = ?, content = ?, updated_at = ?
+WHERE id = ?;
+
+-- Toggle status favorit
+toggleFavorite:
+UPDATE NoteEntity
+SET is_favorite = CASE WHEN is_favorite = 1 THEN 0 ELSE 1 END
+WHERE id = ?;
+
+-- Hapus note berdasarkan ID
+deleteNote:
+DELETE FROM NoteEntity WHERE id = ?;
+
+-- Hitung total notes (untuk statistik di Profile)
+countAll:
+SELECT COUNT(*) FROM NoteEntity;
+
+-- Hitung total favorit
+countFavorites:
+SELECT COUNT(*) FROM NoteEntity WHERE is_favorite = 1;
